@@ -27,7 +27,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradeP
 from nautilus_trader.examples.strategies.freqtrade_ported.helpers import rsi_to_freqtrade
 
 
-class MultiRsiConfig(FreqtradePortConfig, frozen=True):
+class MultiRsiConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``MultiRsi``."""
 
     short_tf_bar_type: BarType

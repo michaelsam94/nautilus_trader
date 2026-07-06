@@ -24,7 +24,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradeP
 from nautilus_trader.examples.strategies.freqtrade_ported.helpers import ShiftedValue
 
 
-class VolatilitySystemConfig(FreqtradePortConfig, frozen=True):
+class VolatilitySystemConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """
     Configuration for ``VolatilitySystem``.
 

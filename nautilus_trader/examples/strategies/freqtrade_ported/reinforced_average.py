@@ -26,7 +26,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradeP
 from nautilus_trader.examples.strategies.freqtrade_ported.helpers import CrossDetector
 
 
-class ReinforcedAverageConfig(FreqtradePortConfig, frozen=True):
+class ReinforcedAverageConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``ReinforcedAverage``."""
 
     trend_bar_type: BarType

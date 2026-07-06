@@ -37,7 +37,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.indicators import Roll
 from nautilus_trader.examples.strategies.freqtrade_ported.indicators import RollingMinimum
 
 
-class ReinforcedQuickieConfig(FreqtradePortConfig, frozen=True):
+class ReinforcedQuickieConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``ReinforcedQuickie``."""
 
     trend_bar_type: BarType

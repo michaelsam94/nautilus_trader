@@ -32,7 +32,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.indicators import Expo
 from nautilus_trader.examples.strategies.freqtrade_ported.indicators import MoneyFlowIndex
 
 
-class ReinforcedSmoothScalpConfig(FreqtradePortConfig, frozen=True):
+class ReinforcedSmoothScalpConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``ReinforcedSmoothScalp`` (hyperopt defaults)."""
 
     trend_bar_type: BarType

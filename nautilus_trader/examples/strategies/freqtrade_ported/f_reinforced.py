@@ -28,7 +28,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.helpers import CrossDe
 from nautilus_trader.examples.strategies.freqtrade_ported.indicators import AverageDirectionalIndex
 
 
-class FReinforcedConfig(FreqtradePortConfig, frozen=True):
+class FReinforcedConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``FReinforced`` (hyperopt defaults)."""
 
     trend_bar_type: BarType

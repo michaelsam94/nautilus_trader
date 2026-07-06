@@ -25,7 +25,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradeP
 from nautilus_trader.examples.strategies.freqtrade_ported.helpers import rsi_from_freqtrade
 
 
-class MultiTfConfig(FreqtradePortConfig, frozen=True):
+class MultiTfConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """
     Configuration for ``MultiTf``.
 

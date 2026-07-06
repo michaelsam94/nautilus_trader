@@ -25,7 +25,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradeL
 from nautilus_trader.examples.strategies.freqtrade_ported.base import FreqtradePortConfig
 
 
-class InformativeSampleConfig(FreqtradePortConfig, frozen=True):
+class InformativeSampleConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``InformativeSample``."""
 
     informative_bar_type: BarType
