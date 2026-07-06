@@ -9,9 +9,9 @@ Ports of community strategies from [freqtrade/freqtrade-strategies](https://gith
 | Metric | Count |
 |--------|------:|
 | Total upstream strategies | 65 |
-| Ported (full) | 15 |
+| Ported (full) | 19 |
 | Ported (partial) | 3 |
-| Blocked / not ported | 43 |
+| Blocked / not ported | 39 |
 | Deprecated (lookahead examples) | 4 |
 
 ## Directory structure

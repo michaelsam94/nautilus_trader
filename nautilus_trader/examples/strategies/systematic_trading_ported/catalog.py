@@ -28,6 +28,7 @@ from enum import StrEnum
 
 class AstStatus(StrEnum):
     PORTED = "ported"
+    PARTIAL = "partial"
     DEDUP_SKIP = "dedup_skip"
     BLOCKED = "blocked"
     EXTERNAL = "external"
@@ -84,12 +85,14 @@ AST_STRATEGY_CATALOG: dict[str, AstCatalogEntry] = {
         reason="RSI 30/70 overbought/oversold.",
     ),
     "quant-trading/Shooting Star": AstCatalogEntry(
-        "General Alpha", "je-suis-tm/quant-trading", AstStatus.BLOCKED,
-        reason="Short-only candlestick pattern.",
+        "General Alpha", "je-suis-tm/quant-trading", AstStatus.PORTED,
+        "systematic_trading_ported.shooting_star_short.ShootingStarShort",
+        reason="Short entry + ShootingStarExit long-only bearish exit variant.",
     ),
     "quant-trading/Pair Trading": AstCatalogEntry(
-        "General Alpha", "je-suis-tm/quant-trading", AstStatus.BLOCKED,
-        reason="Two-leg statistical arbitrage.",
+        "General Alpha", "je-suis-tm/quant-trading", AstStatus.PORTED,
+        "systematic_trading_ported.pair_trading.PairTrading",
+        reason="Two-leg z-score with simplified Engle-Granger residual gate.",
     ),
     "quant-trading/Options Straddle": AstCatalogEntry(
         "General Alpha", "je-suis-tm/quant-trading", AstStatus.BLOCKED,
@@ -112,8 +115,16 @@ AST_STRATEGY_CATALOG: dict[str, AstCatalogEntry] = {
         reason="Agricultural forecasting.",
     ),
     "analyzingalpha": AstCatalogEntry(
-        "General Alpha", "leosmigel/analyzingalpha", AstStatus.EXTERNAL,
-        reason="External book/code repo; not vendored in awesome list.",
+        "General Alpha", "leosmigel/analyzingalpha", AstStatus.BLOCKED,
+        reason="Git LFS pointer stubs in clone; strategies not vendored as plain Python.",
+    ),
+    "Astralchemist/Quant-Algos": AstCatalogEntry(
+        "General Alpha", "Astralchemist/Quant-Algos", AstStatus.BLOCKED,
+        reason="Scaffold placeholders; see quant_algos_ported/catalog.py.",
+    ),
+    "ulandz/ai-trader": AstCatalogEntry(
+        "General Alpha", "ulandz/ai-trader", AstStatus.EXTERNAL,
+        reason="YAML-driven Backtrader pack; separate port track.",
     ),
     "PyTrendFollow": AstCatalogEntry(
         "General Alpha", "chrism2671/PyTrendFollow", AstStatus.EXTERNAL,

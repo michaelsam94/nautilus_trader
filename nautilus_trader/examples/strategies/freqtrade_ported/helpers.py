@@ -130,3 +130,93 @@ class RollingMean:
         self._window.clear()
         self.value = 0.0
         self.initialized = False
+
+
+class RollingStd:
+    """Rolling sample standard deviation."""
+
+    def __init__(self, period: int) -> None:
+        self.period = period
+        self._window: deque[float] = deque(maxlen=period)
+        self.value: float = 0.0
+        self.initialized = False
+
+    def update(self, value: float) -> None:
+        self._window.append(value)
+        n = len(self._window)
+        if n < self.period:
+            return
+        mean = sum(self._window) / n
+        variance = sum((x - mean) ** 2 for x in self._window) / n
+        self.value = math.sqrt(variance)
+        self.initialized = True
+
+    def reset(self) -> None:
+        self._window.clear()
+        self.value = 0.0
+        self.initialized = False
+
+
+class CloseHistory:
+    """Track recent close prices for shift(N) lookups."""
+
+    def __init__(self, size: int = 6) -> None:
+        self._closes: deque[float] = deque(maxlen=size)
+
+    def update(self, close: float) -> None:
+        self._closes.append(close)
+
+    def shifted(self, shift: int) -> float | None:
+        if shift < 0 or len(self._closes) <= shift:
+            return None
+        return self._closes[-(shift + 1)]
+
+    def reset(self) -> None:
+        self._closes.clear()
+
+
+class OpenHistory:
+    """Track recent open prices for shift(N) lookups."""
+
+    def __init__(self, size: int = 8) -> None:
+        self._opens: deque[float] = deque(maxlen=size)
+
+    def update(self, open_: float) -> None:
+        self._opens.append(open_)
+
+    def shifted(self, shift: int) -> float | None:
+        if shift < 0 or len(self._opens) <= shift:
+            return None
+        return self._opens[-(shift + 1)]
+
+    def reset(self) -> None:
+        self._opens.clear()
+
+
+class AverageHistory:
+    """Track (O+H+L+C)/4 for ReinforcedQuickie-style patterns."""
+
+    def __init__(self, size: int = 8) -> None:
+        self._values: deque[float] = deque(maxlen=size)
+
+    def update(self, bar: object) -> None:
+        o = bar.open.as_double()  # type: ignore[attr-defined]
+        h = bar.high.as_double()  # type: ignore[attr-defined]
+        l = bar.low.as_double()  # type: ignore[attr-defined]
+        c = bar.close.as_double()  # type: ignore[attr-defined]
+        self._values.append((o + h + l + c) / 4.0)
+
+    def shifted(self, shift: int) -> float | None:
+        if shift < 0 or len(self._values) <= shift:
+            return None
+        return self._values[-(shift + 1)]
+
+    def reset(self) -> None:
+        self._values.clear()
+
+
+def hour_in_range(hour: int, hour_min: int, hour_max: int) -> bool:
+    """Inclusive hour range with midnight wrap when ``hour_min > hour_max``."""
+    if hour_min <= hour_max:
+        return hour_min <= hour <= hour_max
+    return hour >= hour_min or hour <= hour_max

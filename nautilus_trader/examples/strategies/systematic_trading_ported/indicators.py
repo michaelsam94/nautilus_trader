@@ -202,3 +202,67 @@ class DualThrustRange(Indicator):
         self._day_high = 0.0
         self._day_low = 0.0
         self._day_close = 0.0
+
+
+class ShootingStarPattern(Indicator):
+    """
+    Bearish shooting-star candlestick detector (je-suis-tm/quant-trading).
+
+    Sets ``detected`` True when all Investopedia-style criteria match on the
+    prior bar (confirmation bar required; no forward lookahead on current bar).
+    """
+
+    def __init__(
+        self,
+        lower_bound: float = 0.2,
+        body_size: float = 0.5,
+        body_lookback: int = 20,
+    ) -> None:
+        super().__init__(params=[lower_bound, body_size, body_lookback])
+        self.lower_bound = lower_bound
+        self.body_size = body_size
+        self.body_lookback = body_lookback
+        self.detected: bool = False
+        self._bars: deque[tuple[float, float, float, float]] = deque(maxlen=body_lookback + 2)
+        self._body_sizes: deque[float] = deque(maxlen=body_lookback)
+
+    def handle_bar(self, bar: Bar) -> None:
+        PyCondition.not_none(bar, "bar")
+        open_ = bar.open.as_double()
+        high = bar.high.as_double()
+        low = bar.low.as_double()
+        close = bar.close.as_double()
+        self._bars.append((open_, high, low, close))
+        self._body_sizes.append(abs(open_ - close))
+        self.detected = False
+        if len(self._bars) < 3:
+            return
+
+        bars = list(self._bars)
+        o, h, l, c = bars[-2]
+        n_o, n_h, n_l, n_c = bars[-1]
+        prev_c = bars[-3][3]
+        prev2_c = bars[-4][3] if len(bars) >= 4 else prev_c
+
+        body = abs(o - c)
+        mean_body = sum(self._body_sizes) / len(self._body_sizes) if self._body_sizes else body
+        cond1 = o >= c
+        cond2 = (c - l) < self.lower_bound * abs(c - o) if abs(c - o) > 0 else True
+        cond3 = body < mean_body * self.body_size
+        cond4 = (h - o) >= 2 * abs(o - c) if abs(o - c) > 0 else False
+        cond5 = c >= prev_c
+        cond6 = prev_c >= prev2_c
+        cond7 = n_h <= h
+        cond8 = n_c <= c
+
+        if all((cond1, cond2, cond3, cond4, cond5, cond6, cond7, cond8)):
+            self.detected = True
+
+        if not self.initialized and len(self._bars) >= 3:
+            self._set_has_inputs(True)
+            self._set_initialized(True)
+
+    def _reset(self) -> None:
+        self._bars.clear()
+        self._body_sizes.clear()
+        self.detected = False

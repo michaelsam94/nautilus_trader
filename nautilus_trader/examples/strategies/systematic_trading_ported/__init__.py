@@ -26,8 +26,14 @@ from nautilus_trader.examples.strategies.systematic_trading_ported.heikin_ashi_m
 from nautilus_trader.examples.strategies.systematic_trading_ported.heikin_ashi_marubozu import HeikinAshiMarubozuConfig
 from nautilus_trader.examples.strategies.systematic_trading_ported.london_breakout import LondonBreakout
 from nautilus_trader.examples.strategies.systematic_trading_ported.london_breakout import LondonBreakoutConfig
+from nautilus_trader.examples.strategies.systematic_trading_ported.pair_trading import PairTrading
+from nautilus_trader.examples.strategies.systematic_trading_ported.pair_trading import PairTradingConfig
 from nautilus_trader.examples.strategies.systematic_trading_ported.parabolic_sar import ParabolicSarStrategy
 from nautilus_trader.examples.strategies.systematic_trading_ported.parabolic_sar import ParabolicSarStrategyConfig
+from nautilus_trader.examples.strategies.systematic_trading_ported.shooting_star import ShootingStarExit
+from nautilus_trader.examples.strategies.systematic_trading_ported.shooting_star import ShootingStarExitConfig
+from nautilus_trader.examples.strategies.systematic_trading_ported.shooting_star_short import ShootingStarShort
+from nautilus_trader.examples.strategies.systematic_trading_ported.shooting_star_short import ShootingStarShortConfig
 
 
 __all__ = [
@@ -41,7 +47,13 @@ __all__ = [
     "HeikinAshiMarubozuConfig",
     "LondonBreakout",
     "LondonBreakoutConfig",
+    "PairTrading",
+    "PairTradingConfig",
     "ParabolicSarStrategy",
     "ParabolicSarStrategyConfig",
+    "ShootingStarExit",
+    "ShootingStarExitConfig",
+    "ShootingStarShort",
+    "ShootingStarShortConfig",
     "QUANT_TRADING_DEDUP",
 ]
