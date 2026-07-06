@@ -66,6 +66,7 @@ class ChanPairSpreadStrategy(Strategy):
         self.instrument: Instrument | None = None
         self.hedge_instrument: Instrument | None = None
         self._last_hedge_price: float | None = None
+        self._last_price1: float | None = None
         self._spread_position: int = 0  # +1 long spread, -1 short spread, 0 flat
 
     @property
@@ -109,7 +110,8 @@ class ChanPairSpreadStrategy(Strategy):
             return
         if self._last_hedge_price is None or bar.is_single_price():
             return
-        self._update_spread_signal(bar.close.as_double(), self._last_hedge_price)
+        self._last_price1 = bar.close.as_double()
+        self._update_spread_signal(self._last_price1, self._last_hedge_price)
         if not self._signal_ready():
             return
         self._apply_spread_logic()
@@ -155,7 +157,14 @@ class ChanPairSpreadStrategy(Strategy):
             self.order_factory.market(
                 self.pair_config.hedge_instrument_id,
                 side2,
-                self.hedge_instrument.make_qty(self.pair_config.trade_size),
+                # Notional-balance the hedge leg: equal unit quantities only make
+                # a spread when both legs trade at similar prices (as in the
+                # book's ETF pairs); dissimilar legs need price-ratio sizing
+                self.hedge_instrument.make_qty(
+                    float(self.pair_config.trade_size)
+                    * self._last_price1
+                    / self._last_hedge_price,
+                ),
                 TimeInForce.GTC,
             ),
         )
