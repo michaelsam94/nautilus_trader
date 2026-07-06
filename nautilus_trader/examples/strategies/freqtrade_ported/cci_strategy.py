@@ -28,7 +28,7 @@ from nautilus_trader.examples.strategies.freqtrade_ported.indicators import Chai
 from nautilus_trader.examples.strategies.freqtrade_ported.indicators import MoneyFlowIndex
 
 
-class CciStrategyConfig(FreqtradePortConfig, frozen=True):
+class CciStrategyConfig(FreqtradePortConfig, frozen=True, kw_only=True):
     """Configuration for ``CciStrategy``."""
 
     resample_bar_type: BarType
