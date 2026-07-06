@@ -33,7 +33,7 @@ from nautilus_trader.trading.strategy import Strategy
 
 
 
-class JohansenPortfolioMrConfig(StrategyConfig, frozen=True):
+class JohansenPortfolioMrConfig(StrategyConfig, frozen=True, kw_only=True):
     """Configuration for ``JohansenPortfolioMr`` (EWA-EWC-IGE style)."""
 
     instrument_ids: tuple[InstrumentId, InstrumentId, InstrumentId]
