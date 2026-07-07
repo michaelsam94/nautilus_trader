@@ -15,6 +15,7 @@ Research catalog of GitHub repositories and curated lists containing large colle
 | `quant_algos_ported/` | [Astralchemist/Quant-Algos](https://github.com/Astralchemist/Quant-Algos) | 0 / ~311 | Scaffold placeholders; dedup catalog only |
 | `academic_ported/` | [paperswithbacktest/awesome-systematic-trading](https://github.com/paperswithbacktest/awesome-systematic-trading) `static/strategies/` | 1 / 59 | QC universe scripts; 58 blocked |
 | `gekko_ported/` | [SpiralDevelopment/Awesome-Crypto-Trading](https://github.com/SpiralDevelopment/Awesome-Crypto-Trading) → [xFFFFF/Gekko-Strategies](https://github.com/xFFFFF/Gekko-Strategies) | 5 / ~19 families | 612 JS files collapse to ~19 families; NN/GA blocked; see `gekko_ported/catalog.py` |
+| `analyzingalpha_ported/` | [wangzhe3224/awesome-systematic-trading](https://github.com/wangzhe3224/awesome-systematic-trading) → [leosmigel/analyzingalpha](https://github.com/leosmigel/analyzingalpha) | 3 / 13 | + chrisconlan/algorithmic-trading-with-python fully dedup-skipped; see `analyzingalpha_ported/catalog.py` |
 
 ---
 
